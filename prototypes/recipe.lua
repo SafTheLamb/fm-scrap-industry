@@ -124,7 +124,15 @@ if settings.startup["scrap-industry-plastic"].value then
         {type="item", name="plastic-bits", amount=3},
         {type="fluid", name="petroleum-gas", amount=10}
       },
-      results = {{type="item", name="plastic-bar", amount=2}}
+      results = {{type="item", name="plastic-bar", amount=2}},
+	  
+		crafting_machine_tint = {
+			primary = {r = 1.000, g = 1.000, b = 1.000, a = 1.000},
+			secondary = {r = 0.771, g = 0.771, b = 0.771, a = 1.000}, 
+			tertiary = {r = 0.8, g = 0.66, b = 0.8, a = 1.000},
+			quaternary = {r = 0.55, g = 0.5, b = 0.55, a = 1.000},  
+		}
+	  
     }
   })
 end
@@ -196,7 +204,17 @@ if mods["space-age"] then
         {type="item", name="holmium-scrap", amount=mods["Expensive-Mode"] and 5 or 3},
         {type="item", name=mods["aai-industry"] and "sand" or "stone", amount=1}
       },
-      results = {{type="fluid", name="holmium-solution", amount=mods["aai-industry"] and 100 or 150}}
+      results = {{type="fluid", name="holmium-solution", amount=mods["aai-industry"] and 100 or 150}},
+	  
+		crafting_machine_tint =
+		{
+			  primary = {r = 0.598, g = 0.274, b = 0.501, a = 0.502}, -- #98457f80
+			  secondary = {r = 0.524, g = 0.499, b = 0.521, a = 0.502}, -- #857f8480
+			  tertiary = {r = 0.716, g = 0.716, b = 0.716, a = 0.502}, -- #b6b6b680
+			  quaternary = {r = 0.768, g = 0.487, b = 0.684, a = 0.502}, -- #c37cae80
+		}
+	  
+	  
     },
   })
   if settings.startup["scrap-industry-plastic"].value then
@@ -250,7 +268,17 @@ if mods["space-age"] then
           {type="item", name="lithium", amount=1, probability=0.47},
           {type="item", name="sulfur", amount=1, probability=0.03}
         },
-        main_product = "lithium"
+        main_product = "lithium",
+		
+		crafting_machine_tint =
+		{
+		  primary = {r = 0.45, g = 0.8, b = 0.5, a = 1.000}, 
+		  secondary = {r = 0.8, g = 0.9, b = 0.3, a = 1.000}, 
+		  tertiary = {r = 0.876, g = 0.869, b = 0.597, a = 1.000}, 
+		  quaternary = {r = 1.000, g = 1.000, b = 1.000, a = 1.000},
+		}		
+		
+		
       }
     })
   end
@@ -331,7 +359,7 @@ if mods["space-age"] then
   end
 end
 
-if mods["Rocs-Rusting-Iron"] then
+if mods["Rocs-Rusting-Iron"] and settings.startup["scrap-industry-rust"].value then
   local derusting_material = mods["aai-industry"] and "sand" or "stone"
   data:extend({
     {
