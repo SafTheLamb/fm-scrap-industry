@@ -164,12 +164,13 @@ for _,recipe in pairs(data.raw.recipe) do
       success_penalty = 0
     }
 
-    local recipe_metadata = ScrapIndustry.recipes[recipe.name]
-    if recipe_metadata and recipe_metadata.self_scrap then
+    local recipe_metadata = ScrapIndustry.recipes[recipe.name] or {}
+    local category_metadata = ScrapIndustry.categories[recipe.category or "crafting"] or {}
+    if recipe_metadata.self_scrap or category_metadata.self_scrap then
       for _,result in pairs(recipe.results) do
         get_ingredient_scrap(result, out)
       end
-    elseif recipe_metadata and recipe_metadata.fake_ingredients then
+    elseif recipe_metadata.fake_ingredients then
       for _,result in pairs(recipe_metadata.fake_ingredients) do
         get_ingredient_scrap(result, out)
       end
@@ -182,7 +183,7 @@ for _,recipe in pairs(data.raw.recipe) do
       end
     end
 
-    if recipe_metadata and type(recipe_metadata.failrate) == "number" then
+    if recipe_metadata.failrate and type(recipe_metadata.failrate) == "number" then
       out.success_penalty = recipe_metadata.failrate
     elseif out.total_scrap > 0 then
       local failrate_scale = 1 / (out.total_scrap / (2*ScrapIndustry.LEGENDARY))
