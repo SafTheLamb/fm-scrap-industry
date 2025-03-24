@@ -265,7 +265,11 @@ if table_size(handcraft_recipes) > 0 then
         name = "hand-crafting"
       }
     })
-    table.insert(data.raw.character.character.crafting_categories, "hand-crafting")
+    --table.insert(data.raw.character.character.crafting_categories, "hand-crafting")
+	  for _,b in pairs(data.raw.character) do
+	    table.insert(b.crafting_categories, "hand-crafting")
+	  end
+	  table.insert(data.raw["god-controller"].default.crafting_categories, "hand-crafting")	
   end
   for _,tech in pairs(data.raw.technology) do
     for _,effect in pairs(tech.effects or {}) do
