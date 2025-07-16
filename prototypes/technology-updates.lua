@@ -9,6 +9,10 @@ if mods["space-age"] then
   table.insert(data.raw.technology["processing-unit-productivity"].effects, {type="change-recipe-productivity", recipe="processing-unit-from-scrap", change=0.1})
 end
 
+if settings.startup["scrap-industry-mech"].value then
+  ftech.add_unlock("engine", "engine-from-scrap")
+end
+
 if settings.startup["scrap-industry-plastic"].value then
   ftech.add_unlock("plastics", "plastic-bar-from-bits")
   if mods["space-age"] then

@@ -8,11 +8,35 @@ data:extend({
   },
   {
     type = "bool-setting",
+    name = "scrap-industry-mech",
+    setting_type = "startup",
+    default_value = true,
+    order = "a[base]-c[mech]"
+  },
+  {
+    type = "bool-setting",
     name = "scrap-industry-handcraft",
     setting_type = "startup",
     default_value = true,
     order = "m[misc]-a[handcraft]"
   },
+  
+  {
+    type = "bool-setting",
+    name = "scrap-industry-no-scrap-scrap",
+    setting_type = "startup",
+    default_value = false,
+    order = "m[misc]-b[no-scrap-scrap]"
+  },
+  
+  {
+    type = "bool-setting",
+    name = "scrap-industry-red-circuit-plastic",
+    setting_type = "startup",
+    default_value = false,
+    order = "m[misc]-c[red-circuit-plastic]"
+  },
+  
   {
     type = "bool-setting",
     name = "scrap-industry-no-mercy",
@@ -27,7 +51,7 @@ data:extend({
     default_value = 1,
     minimum_value = 0.1,
     maximum_value = 2,
-    order = "m[misc]-b[byproduct-scale]"
+    order = "m[misc]-d[byproduct-scale]"
   },
   {
     type = "double-setting",
@@ -36,7 +60,7 @@ data:extend({
     default_value = 1,
     minimum_value = 0.1,
     maximum_value = 5,
-    order = "m[misc]-c[failrate-scale]"
+    order = "m[misc]-e[failrate-scale]"
   },
   {
     type = "double-setting",
@@ -45,7 +69,7 @@ data:extend({
     default_value = 0.01,
     minimum_value = 0,
     maximum_value = 0.2,
-    order = "m[misc]-d[failrate-min]"
+    order = "m[misc]-f[failrate-min]"
   },
 })
 

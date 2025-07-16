@@ -1,7 +1,12 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.9.6
-Date: ????
-  Changes:
+Version: 0.10.0
+Date: 2025-07-08
+  Major Features:
+    - Add new Mechanical scrap as scrap from engines
+  Minor Features:
+    - Add "no scrap from scrap" setting
+  Balancing:
+    - Advanced circuit from scrap no longer requires plastic (can be changed with setting)
 ---------------------------------------------------------------------------------------------------
 Version: 0.9.5
 Date: 2025-07-04

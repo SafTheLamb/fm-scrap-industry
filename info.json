@@ -2,18 +2,18 @@
   "name": "scrap-industry",
   "title": "Scrappy Industry",
   "description": "Repurpose the waste from the imprecise assembly of machines for new materials. No process is ever truly perfect.",
-  "author": "SafTheLamb",
-  "version": "0.9.6",
+  "author": "SafTheLamb + S6X",
+  "version": "0.10.0",
   "factorio_version": "2.0",
   "package": {
     "ignore": ["thumbnail.afphoto", "**/*.afphoto", "**/*.ase", "**/*.afphoto~lock~", "**/*.pdn"]
   },
   "dependencies": [
-    "base >= 2.0.32",
-    "fdsl >= 0.1.8",
+    "base >= 2.0.55",
     "? space-age",
+    "fdsl >= 0.1.8",
+    "? crushing-industry >= 0.4.7",
     "(?) Rocs-Rusting-Iron >= 1.2.0",
-    "? crushing-industry",
     "(?) aai-industry",
     "(?) bzlead",
     "(?) quality"

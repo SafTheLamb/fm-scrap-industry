@@ -5,19 +5,26 @@ local expensive_mode = mods["Expensive-Mode"]
 ScrapIndustry.products["iron-scrap"] = {priority=1}
 ScrapIndustry.products["copper-scrap"] = {priority=1}
 ScrapIndustry.products["steel-scrap"] = {priority=2}
+
+if settings.startup["scrap-industry-mech"].value then
+	ScrapIndustry.products["mech-scrap"] = {priority=3}
+	ScrapIndustry.items["iron-gear-wheel"] = {scrap="mech-scrap", scale=ScrapIndustry.COMMON, failrate=0.02}
+else
+	ScrapIndustry.items["iron-gear-wheel"] = {scrap="iron-scrap", scale=ScrapIndustry.PRODUCT, failrate=0.02}
+end
+
 ScrapIndustry.categories["smelting"] = {ignore=true}
 ScrapIndustry.items["iron-plate"] = {scrap="iron-scrap", scale=ScrapIndustry.COMMON, failrate=0.01, recycle=2}
-ScrapIndustry.items["iron-gear-wheel"] = {scrap="iron-scrap", scale=ScrapIndustry.PRODUCT, failrate=0.02}
 ScrapIndustry.items["iron-stick"] = {scrap="iron-scrap", scale=ScrapIndustry.CHEAP, failrate=0.02}
 ScrapIndustry.items["pipe"] = {scrap="iron-scrap", scale=ScrapIndustry.COMMON, failrate=0.01}
 ScrapIndustry.items["copper-plate"] = {scrap="copper-scrap", scale=ScrapIndustry.COMMON, failrate=0.01, recycle=2}
 ScrapIndustry.items["copper-cable"] = {scrap="copper-scrap", scale=ScrapIndustry.COMMON, failrate=0.02}
 ScrapIndustry.items["steel-plate"] = {scrap="steel-scrap", scale=ScrapIndustry.UNCOMMON, failrate=0.03, recycle=expensive_mode and 10 or 5}
 if mercy_mode then
-  ScrapIndustry.recipes["iron-gear-wheel"] = {ignore=true}
-  ScrapIndustry.recipes["iron-stick"] = {ignore=true}
-  ScrapIndustry.recipes["copper-cable"] = {ignore=true}
-  ScrapIndustry.recipes["pipe"] = {ignore=true}
+	ScrapIndustry.recipes["iron-gear-wheel"] = {ignore=true}
+	ScrapIndustry.recipes["iron-stick"] = {ignore=true}
+	ScrapIndustry.recipes["copper-cable"] = {ignore=true}
+	ScrapIndustry.recipes["pipe"] = {ignore=true}
 end
 
 ScrapIndustry.products["stone"] = {priority=0.5}
@@ -43,17 +50,25 @@ ScrapIndustry.recipes["electronic-circuit"] = {self_scrap=true}
 ScrapIndustry.recipes["advanced-circuit"] = {failrate=0.02}
 ScrapIndustry.recipes["processing-unit"] = {failrate=0.01}
 
-ScrapIndustry.items["engine-unit"] = {scrap={"iron-scrap", "steel-scrap"}, scale=ScrapIndustry.UNCOMMON, failrate=0.02}
+if settings.startup["scrap-industry-mech"].value then
+	ScrapIndustry.recipes["engine-unit"] = {fake_ingredients = {{type="item", name="steel-plate", amount=1}, {type="item", name="engine-unit", amount=1}}}
+	ScrapIndustry.items["engine-unit"] = {scrap={"mech-scrap"}, scale=ScrapIndustry.UNCOMMON, failrate=0.02}
+	ScrapIndustry.items["electric-engine-unit"] = {scrap={"mech-scrap", "circuit-scrap"}, scale=ScrapIndustry.RARE, failrate=0.02}
+	ScrapIndustry.items["flying-robot-frame"] = {scrap={"mech-scrap", "circuit-scrap"}, scale=ScrapIndustry.RARE, failrate=0.01}
+else
+	ScrapIndustry.items["engine-unit"] = {scrap={"iron-scrap", "steel-scrap"}, scale=ScrapIndustry.UNCOMMON, failrate=0.02}
+	ScrapIndustry.items["electric-engine-unit"] = {scrap={"steel-scrap", "circuit-scrap"}, scale=ScrapIndustry.RARE, failrate=0.02}
+	ScrapIndustry.items["flying-robot-frame"] = {scrap={"steel-scrap", "circuit-scrap"}, scale=ScrapIndustry.RARE, failrate=0.01}
+end
+
 ScrapIndustry.items["low-density-structure"] = {scrap={"copper-scrap", "steel-scrap"}, scale=ScrapIndustry.EXPENSIVE, failrate=0.01}
-ScrapIndustry.items["electric-engine-unit"] = {scrap={"steel-scrap", "circuit-scrap"}, scale=ScrapIndustry.RARE, failrate=0.02}
-ScrapIndustry.items["flying-robot-frame"] = {scrap={"steel-scrap", "circuit-scrap"}, scale=ScrapIndustry.RARE, failrate=0.01}
 ScrapIndustry.recipes["assembling-machine-2"] = {failrate=0.02}
 
 if settings.startup["scrap-industry-plastic"].value then
-  ScrapIndustry.products["plastic-bits"] = {priority=3}
-  ScrapIndustry.items["plastic-bar"] = {scrap="plastic-bits", scale=ScrapIndustry.COMMON, failrate=0.02}
-  table.insert(ScrapIndustry.items["low-density-structure"].scrap, "plastic-bits")
-  ScrapIndustry.items["raw-fish"] = {scrap="plastic-bits", scale=ScrapIndustry.FLAVOR, failrate=0.01} -- microplastics, it makes me sad too
+	ScrapIndustry.products["plastic-bits"] = {priority=3}
+	ScrapIndustry.items["plastic-bar"] = {scrap="plastic-bits", scale=ScrapIndustry.COMMON, failrate=0.02}
+	table.insert(ScrapIndustry.items["low-density-structure"].scrap, "plastic-bits")
+	ScrapIndustry.items["raw-fish"] = {scrap="plastic-bits", scale=ScrapIndustry.FLAVOR, failrate=0.01} -- microplastics, it makes me sad too
 end
 
 ScrapIndustry.items["speed-module"] = {scrap="circuit-scrap", scale=ScrapIndustry.EXPENSIVE, failrate=-0.01}

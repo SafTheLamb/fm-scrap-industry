@@ -19,14 +19,19 @@ if mods["bztitanium"] then
 end
 
 if mods["bztin"] then
-  frep.modify_ingredient("electronic-circuit-from-scrap", "circuit-scrap", {amount=3})
-  frep.scale_ingredient("electronic-circuit-from-scrap", "copper-cable", {amount=2})
-  frep.scale_result("electronic-circuit-from-scrap", "electronic-circuit", {amount=2})
-  frep.add_ingredient("electronic-circuit-from-scrap", {type="item", name="solder", amount=1})
-  
-  frep.modify_ingredient("advanced-circuit-from-scrap", "circuit-scrap", {amount=5})
-  frep.modify_ingredient("advanced-circuit-from-scrap", "copper-cable", {amount=3})
-  frep.modify_ingredient("advanced-circuit-from-scrap", "plastic-bar", {amount=2})
-  frep.scale_result("advanced-circuit-from-scrap", "advanced-circuit", {amount=2})
-  frep.add_ingredient("advanced-circuit-from-scrap", {type="item", name="solder", amount=1})
+	frep.modify_ingredient("electronic-circuit-from-scrap", "circuit-scrap", {amount=3})
+	frep.scale_ingredient("electronic-circuit-from-scrap", "copper-cable", {amount=2})
+	frep.scale_result("electronic-circuit-from-scrap", "electronic-circuit", {amount=2})
+	frep.add_ingredient("electronic-circuit-from-scrap", {type="item", name="solder", amount=1})
+
+	if (settings.startup["scrap-industry-red-circuit-plastic"].value) then
+		frep.modify_ingredient("advanced-circuit-from-scrap", "circuit-scrap", {amount=12})	
+	else
+		frep.modify_ingredient("advanced-circuit-from-scrap", "circuit-scrap", {amount=5})
+		frep.modify_ingredient("advanced-circuit-from-scrap", "plastic-bar", {amount=2})
+	end
+	
+	frep.modify_ingredient("advanced-circuit-from-scrap", "copper-cable", {amount=3})
+	frep.scale_result("advanced-circuit-from-scrap", "advanced-circuit", {amount=2})
+	frep.add_ingredient("advanced-circuit-from-scrap", {type="item", name="solder", amount=1})
 end
