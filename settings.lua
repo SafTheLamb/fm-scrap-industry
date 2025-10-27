@@ -13,6 +13,13 @@ data:extend({
     default_value = true,
     order = "a[base]-c[mech]"
   },
+   {
+    type = "bool-setting",
+    name = "scrap-industry-unhide-recipe-signals",
+    setting_type = "startup",
+    default_value = false,
+    order = "c[compat]-a[signals]"
+  },
   {
     type = "bool-setting",
     name = "scrap-industry-handcraft",

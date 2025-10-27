@@ -225,6 +225,7 @@ if settings.startup["scrap-industry-mech"].value then
 			hide_from_player_crafting = false,
 			energy_required = 2,
 			ingredients = {{type="item", name="mech-scrap", amount=4}},
+			main_product = "",
 			results = mechanical_sort_results,
 		},
 		{

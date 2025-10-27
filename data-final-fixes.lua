@@ -9,3 +9,11 @@ if mods["Rocs-Rusting-Iron"] then
     }
   end
 end
+
+if (settings.startup["scrap-industry-unhide-recipe-signals"].value) then
+	for i in pairs(data.raw.item) do
+		if (data.raw.recipe[i] and not data.raw.recipe[i].hidden) then
+			data.raw.recipe[i].hide_from_signal_gui = false
+		end
+	end
+end
