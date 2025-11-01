@@ -1,10 +1,16 @@
 ---------------------------------------------------------------------------------------------------
+Version: 0.10.2
+Date: 2025-11-01
+  Bugfixes:
+    - Fix recipes sharing a table reference generating scrap twice
+    - Fix incorrect check for an empty table
+---------------------------------------------------------------------------------------------------
 Version: 0.10.1
 Date: 2025-10-27
   Minor Features:
     - Add setting to make recipe signals visible
   Bugfixes:
-    - Fixed incorrect RU locale file
+    - Fix incorrect RU locale file
 ---------------------------------------------------------------------------------------------------
 Version: 0.10.0
 Date: 2025-07-08

@@ -30,6 +30,10 @@ local function get_ingredient_scrap(ingredient, out)
 end
 
 local function can_modify_recipe(recipe)
+  if recipe.si_ignore then
+	return false
+  end
+  
   if not recipe.results or #recipe.results == 0 then
     return false
   end
@@ -149,6 +153,7 @@ local function duplicate_for_hand_crafting(recipe)
   duplicate_recipe.hidden = true
   table.insert(handcraft_recipes, duplicate_recipe)
   handcraft_recipe_map[recipe.name] = duplicate_recipe.name
+  duplicate_recipe.si_ignore = true
   return duplicate_recipe
 end
 
@@ -215,20 +220,24 @@ for _,recipe in pairs(data.raw.recipe) do
       out.success_penalty = math.max(global_failrate_scale * out.success_penalty, global_failrate_min)
     end
   
-    if out.success_penalty > 0 then
-      for _,result in pairs(recipe.results) do
-        if result.type == "item" then
-          local new_probability = 1 - out.success_penalty
-          if result.probability then
-            result.probability = result.probability * new_probability
-          else
-            result.probability = new_probability
-          end
-        end
-      end
+	local cancel_gen = false
+    for _,result in pairs(recipe.results) do
+		if result.si_generated_result then
+		  cancel_gen = true
+		  break
+		elseif result.type == "item" then
+		  local new_probability = 1 - (out.success_penalty or 0)
+		  if new_probability < 1 then
+			  if result.probability then
+				result.probability = result.probability * new_probability
+			  else
+				result.probability = new_probability
+			  end
+		  end		
+		end
     end
 
-    if out.byproducts ~= {} then
+    if (not cancel_gen and next(out.byproducts) ~= nil) then
       local excluded_result = ""
       if table_size(out.byproducts) > 3 then
         -- if there are a lot of scrap results, get rid of the least important one (biased by scrap amount)
@@ -266,6 +275,7 @@ for _,recipe in pairs(data.raw.recipe) do
             result.amount = math.ceil(final_amount)
             result.ignored_by_productivity=result.amount
           end
+		  result.si_generated_result = true
           table.insert(recipe.results, result)
         end
       end
