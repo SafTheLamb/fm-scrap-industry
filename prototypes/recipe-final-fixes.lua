@@ -222,7 +222,7 @@ for _,recipe in pairs(data.raw.recipe) do
   
 	local cancel_gen = false
     for _,result in pairs(recipe.results) do
-		if result.si_generated_result then
+		if result.si_modified then
 		  cancel_gen = true
 		  break
 		elseif result.type == "item" then
@@ -233,6 +233,7 @@ for _,recipe in pairs(data.raw.recipe) do
 			  else
 				result.probability = new_probability
 			  end
+			  result.si_modified = true
 		  end		
 		end
     end
@@ -275,7 +276,7 @@ for _,recipe in pairs(data.raw.recipe) do
             result.amount = math.ceil(final_amount)
             result.ignored_by_productivity=result.amount
           end
-		  result.si_generated_result = true
+		  result.si_modified = true
           table.insert(recipe.results, result)
         end
       end
