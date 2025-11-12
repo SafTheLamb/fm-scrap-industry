@@ -207,7 +207,17 @@ if settings.startup["scrap-industry-mech"].value then
 			{type="item", name="iron-gear-wheel", amount=1, probability=0.5},
 		}		
 	end
-	
+
+	local scrap_engine_results = {
+		mods["aai-industry"] and {type = "item", name = "motor", amount = 2} or {type="item", name="engine-unit", amount=1},
+		mods["aai-industry"] and {type="item", name="iron-scrap", amount_min=4, amount_max=8},
+	}
+	if no_scrap_from_scrap then
+		scrap_engine_results = {
+			mods["aai-industry"] and {type = "item", name = "motor", amount = 3} or {type="item", name="engine-unit", amount=1}
+		}
+	end
+
 	data:extend({
 		{
 			type = "recipe",
@@ -247,11 +257,11 @@ if settings.startup["scrap-industry-mech"].value then
 		  allow_decomposition = false,
 		  hide_from_signal_gui = false,
 		  hide_from_player_crafting = true,
-		  energy_required = 20,
+		  energy_required = mods["aai-industry"] and 6 or 20,
 		  ingredients = {
 			{type="item", name="mech-scrap", amount=mods["Expensive-Mode"] and 20 or 10},
 		  },
-		  results = {{type="item", name="engine-unit", amount=1}},
+		  results = scrap_engine_results,
 		}
 	})
 	if no_scrap_from_scrap then
