@@ -19,8 +19,10 @@ if mods["crushing-industry"] then
 		table.insert(ScrapIndustry.items["optical-fiber"].scrap, "plastic-bits")
 	end
 
-	if settings.startup["crushing-industry-optical-fiber"].value then
-		frep.replace_ingredient("advanced-circuit-from-scrap", "copper-cable", "optical-fiber")
-		frep.replace_ingredient("processing-unit-from-scrap", "copper-cable", {type="item", name="optical-fiber", amount=3})
+	if settings.startup["crushing-industry-glass"].value then
+		if settings.startup["crushing-industry-optical-fiber"].value then
+			frep.replace_ingredient("advanced-circuit-from-scrap", "copper-cable", "optical-fiber")
+			frep.replace_ingredient("processing-unit-from-scrap", "copper-cable", {type="item", name="optical-fiber", amount=3})
+		end
 	end
 end
