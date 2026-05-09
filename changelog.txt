@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.1.6
+Date: 2026-05-09
+  Bugfixes:
+    - Fix scrap recipes being considered for intermediates (e.g. mechanical scrap sorting, electronic circuit from scrap)
+---------------------------------------------------------------------------------------------------
 Version: 1.1.5
 Date: 2026-02-15
   Compatibility:
