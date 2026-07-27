@@ -13,6 +13,15 @@ if (settings.startup["scrap-industry-red-circuit-plastic"].value) then
 	}
 end
 
+local electronics_or_crafting = {"crafting"}
+local electronics_or_crafting_with_fluid = {"crafting-with-fluid"}
+local chemistry_or_cryogenics = {"chemistry"}
+if (mods["space-age"]) then
+	table.insert(electronics_or_crafting, "electromagnetics")
+	table.insert(electronics_or_crafting_with_fluid, "electromagnetics")
+	table.insert(chemistry_or_cryogenics, "cryogenics")
+end
+
 data:extend({
 	{
 		type = "recipe",
@@ -22,18 +31,17 @@ data:extend({
 			{icon="__scrap-industry__/graphics/icons/iron-scrap.png", shift={-12, -12}, scale=0.4},
 			{icon="__base__/graphics/icons/iron-plate.png", draw_background=true}
 		},
-		category = "smelting",
+		categories = {"smelting"},
 		subgroup = "production-scrap",
 		order = "b[smelting]-a[iron]",
 		allow_productivity = true,
 		auto_recycle = false,
 		allow_decomposition = false,
-		result_is_always_fresh = true,
 		hide_from_signal_gui = false,
 		hide_from_player_crafting = true,
 		energy_required = 3.2,
 		ingredients = {{type="item", name="iron-scrap", amount=mods["Expensive-Mode"] and 4 or 2}},
-		results = {{type="item", name="iron-plate", amount=1}}
+		results = {{type="item", name="iron-plate", amount=1, always_fresh = true}}
 	},
   {
 	type = "recipe",
@@ -43,7 +51,7 @@ data:extend({
 		{icon="__scrap-industry__/graphics/icons/copper-scrap.png", shift={-12, -12}, scale=0.4},
 		{icon="__base__/graphics/icons/copper-plate.png", draw_background=true}
 	},
-	category = "smelting",
+	categories = {"smelting"},
 	subgroup = "production-scrap",
 	order = "b[smelting]-b[copper]",
 	allow_productivity = true,
@@ -63,7 +71,7 @@ data:extend({
 		{icon="__scrap-industry__/graphics/icons/steel-scrap.png", shift={-12, -12}, scale=0.4},
 		{icon="__base__/graphics/icons/steel-plate.png", draw_background=true}
 	},
-	category = "smelting",
+	categories = {"smelting"},
 	subgroup = "production-scrap",
 	order = "b[smelting]-c[steel]",
 	enabled = false,
@@ -84,7 +92,7 @@ data:extend({
 		{icon="__scrap-industry__/graphics/icons/circuit-scrap-3.png", shift={-12, -12}, scale=0.4},
 		{icon="__base__/graphics/icons/electronic-circuit.png", draw_background=true}
 	},
-	category = mods["space-age"] and "electronics" or "crafting",
+	categories = electronics_or_crafting,
 	subgroup = "intermediate-product",
 	order = "b[circuits]-a[electronic-circuit]a",
 	enabled = false,
@@ -109,7 +117,7 @@ data:extend({
 		{icon="__scrap-industry__/graphics/icons/circuit-scrap-1.png", shift={-12, -12}, scale=0.4},
 		{icon="__base__/graphics/icons/advanced-circuit.png", draw_background=true}
 	},
-	category = mods["space-age"] and "electronics" or "crafting",
+	categories = electronics_or_crafting,
 	subgroup = "intermediate-product",
 	order = "b[circuits]-b[advanced-circuit]a",
 	enabled = false,
@@ -131,7 +139,7 @@ data:extend({
 		{icon="__scrap-industry__/graphics/icons/circuit-scrap.png", shift={-12, -12}, scale=0.4},
 		{icon="__base__/graphics/icons/processing-unit.png", draw_background=true}
 	},
-	category = mods["space-age"] and "electronics" or "crafting-with-fluid",
+	categories = electronics_or_crafting_with_fluid,
 	subgroup = "intermediate-product",
 	order = "b[circuits]-c[processing-unit]a",
 	enabled = false,
@@ -169,7 +177,7 @@ if settings.startup["scrap-industry-plastic"].value then
 				{icon="__scrap-industry__/graphics/icons/plastic-bits.png", shift={-12, -12}, scale=0.4},
 				{icon="__base__/graphics/icons/plastic-bar.png", draw_background=true}
 			},
-			category = mods["space-age"] and "chemistry-or-cryogenics" or "chemistry",
+			categories = chemistry_or_cryogenics,
 			subgroup = "production-scrap",
 			order = "d[crafting]-d[plastic-bar]",
 			enabled = false,
@@ -199,14 +207,14 @@ end
 
 if settings.startup["scrap-industry-mech"].value then
 	local mechanical_sort_results = {
-		{type="item", name="iron-plate", amount=1, probability=0.5},
-		{type="item", name="iron-gear-wheel", amount=1, probability=0.5},
-		{type="item", name="iron-scrap", amount_min=1, amount_max=3},
+		{type="item", name="iron-plate", amount=1, shared_probability={min = 0.0, max = 0.5}, always_fresh = true},
+		{type="item", name="iron-gear-wheel", amount=1, shared_probability={min = 0.5, max = 1.0}, always_fresh = true},
+		{type="item", name="iron-scrap", amount_min=1, amount_max=3, always_fresh = true},
 	}
 	if no_scrap_from_scrap then
 		mechanical_sort_results = {
-			{type="item", name="iron-plate", amount_min=1, amount_max=2},
-			{type="item", name="iron-gear-wheel", amount=1, probability=0.5},
+			{type="item", name="iron-plate", amount_min=1, amount_max=2, always_fresh = true},
+			{type="item", name="iron-gear-wheel", amount=1, independent_probability=0.5, always_fresh = true},
 		}
 	end
 
@@ -223,7 +231,6 @@ if settings.startup["scrap-industry-mech"].value then
 			auto_recycle = false,
 			allow_decomposition = false,
 			allow_as_intermediate = false,
-			result_is_always_fresh = true,
 			hide_from_signal_gui = false,
 			hide_from_player_crafting = false,
 			energy_required = 2,
@@ -239,7 +246,7 @@ if settings.startup["scrap-industry-mech"].value then
 				{icon="__scrap-industry__/graphics/icons/mech-scrap.png", shift={-12,-12}, scale=0.4},
 				{icon=mods["aai-industry"] and "__aai-industry__/graphics/icons/multi-cylinder-engine.png" or "__base__/graphics/icons/engine-unit.png", draw_background=true}
 			},
-			category = "advanced-crafting",
+			categories = {"advanced-crafting"},
 			subgroup = "production-scrap",
 			order = "d[crafting]-xb[engine]",
 			enabled = false,
@@ -264,7 +271,7 @@ if settings.startup["scrap-industry-mech"].value then
 				{icon="__scrap-industry__/graphics/icons/mech-scrap.png", shift={-12,-12}, scale=0.4},
 				{icon=mods["aai-industry"] and "__aai-industry__/graphics/icons/big-electric-motor.png" or "__base__/graphics/icons/electric-engine-unit.png", draw_background=true}
 			},
-			category = "crafting-with-fluid",
+			categories = {"crafting-with-fluid"},
 			subgroup = "production-scrap",
 			order = "d[crafting]-xd[electric-engine]",
 			enabled = false,
@@ -303,7 +310,7 @@ if mods["space-age"] then
 				{icon="__scrap-industry__/graphics/icons/tungsten-scrap.png", shift={-12, -12}, scale=0.4},
 				{icon="__space-age__/graphics/icons/tungsten-carbide.png", draw_background=true}
 			},
-			category = mods["alloy-smelting"] and "kiln-smelting" or "crafting-with-fluid",
+			categories = { mods["alloy-smelting"] and "kiln-smelting" or "crafting-with-fluid" },
 			subgroup = "vulcanus-processes",
 			order = "c[tungsten]b-d[tungsten-carbide-from-scrap]",
 			enabled = false,
@@ -328,7 +335,7 @@ if mods["space-age"] then
 				{icon="__scrap-industry__/graphics/icons/tungsten-scrap.png", shift={-12, -12}, scale=0.4},
 				{icon="__space-age__/graphics/icons/tungsten-plate.png", draw_background=true}
 			},
-			category = "metallurgy",
+			categories = {"metallurgy"},
 			subgroup = "vulcanus-processes",
 			order = "c[tungsten]b-e[tungsten-plate-from-scrap]",
 			enabled = false,
@@ -352,7 +359,7 @@ if mods["space-age"] then
 				{icon="__scrap-industry__/graphics/icons/holmium-scrap.png", shift={-12, -12}, scale=0.4},
 				{icon="__space-age__/graphics/icons/fluid/holmium-solution.png", draw_background=true}
 			},
-			category = "chemistry",
+			categories = {"chemistry"},
 			subgroup = "fulgora-processes",
 			order = "b[holmium]b-a[holmium-solution-from-scrap]",
 			enabled = false,
@@ -381,7 +388,7 @@ if mods["space-age"] then
 				{icon="__scrap-industry__/graphics/icons/lithium-powder.png", shift={-12, -12}, scale=0.4},
 				{icon="__space-age__/graphics/icons/lithium-plate.png", draw_background=true}
 			},
-			category = "smelting",
+			categories = {"smelting"},
 			subgroup = "aquilo-processes",
 			order = "c[lithium]-b[lithium-plate-from-powder]",
 			enabled = false,
@@ -419,7 +426,7 @@ if mods["space-age"] then
 			{icon="__space-age__/graphics/icons/yumako-mash.png", shift={4, -6}, scale=0.35, draw_background=true},
 			{icon="__scrap-industry__/graphics/icons/bioplastic-from-bits-top.png", draw_background=true}
 			},
-			category = "organic",
+			categories = {"organic"},
 			subgroup = "agriculture-products",
 			order = "a[organic-products]-c[bioplastic]b",
 			enabled = false,
@@ -452,7 +459,7 @@ if mods["space-age"] then
 			{icon="__scrap-industry__/graphics/icons/iron-scrap.png", shift={-8,-8}, scale=0.35},
 			{icon="__space-age__/graphics/icons/fluid/molten-iron.png", draw_background=true}
 			},
-			category = "metallurgy",
+			categories = {"metallurgy"},
 			subgroup = "production-scrap",
 			order = "e[melting]-a[molten-iron]",
 			enabled = false,
@@ -477,7 +484,7 @@ if mods["space-age"] then
 			{icon="__scrap-industry__/graphics/icons/copper-scrap.png", shift={-8,-8}, scale=0.35},
 			{icon="__space-age__/graphics/icons/fluid/molten-copper.png", draw_background=true}
 			},
-			category = "metallurgy",
+			categories = {"metallurgy"},
 			subgroup = "production-scrap",
 			order = "e[melting]-b[molten-copper]",
 			enabled = false,
@@ -501,7 +508,7 @@ if mods["space-age"] then
 			{icon="__scrap-industry__/graphics/icons/steel-scrap.png", shift={-8,-8}, scale=0.35},
 			{icon="__space-age__/graphics/icons/fluid/molten-iron.png", draw_background=true}
 			},
-			category = "metallurgy",
+			categories = {"metallurgy"},
 			subgroup = "production-scrap",
 			order = "e[melting]-c[molten-steel]",
 			enabled = false,
@@ -539,7 +546,7 @@ if mods["bzlead"] then
 				{icon="__scrap-industry__/graphics/icons/compat/lead-scrap.png", shift={-12, -12}, scale=0.4},
 				{icon="__bzlead__/graphics/icons/lead-plate.png", draw_background=true}
 			},
-			category = "smelting",
+			categories = {"smelting"},
 			subgroup = "production-scrap",
 			order = "b[smelting]-d[lead]",
 			enabled = not needs_research,
@@ -568,7 +575,7 @@ if mods["bzlead"] then
 					{icon="__scrap-industry__/graphics/icons/compat/lead-scrap.png", shift={-8,-8}, scale=0.35},
 					{icon="__bzlead__/graphics/icons/molten-lead-sa.png", draw_background=true}
 				},
-				category = "metallurgy",
+				categories = {"metallurgy"},
 				subgroup = "production-scrap",
 				order = "e[melting]-d[molten-lead]",
 				enabled = false,
@@ -603,7 +610,7 @@ if mods["bztitanium"] then
 				{icon="__scrap-industry__/graphics/icons/compat/titanium-scrap.png", shift={-12, -12}, scale=0.4},
 				{icon="__bztitanium__/graphics/icons/titanium-plate.png", draw_background=true}
 			},
-			category = "smelting",
+			categories = {"smelting"},
 			subgroup = "production-scrap",
 			order = "b[smelting]-e[titanium]",
 			enabled = false,

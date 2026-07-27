@@ -3,16 +3,16 @@
   "title": "Scrappy Industry",
   "description": "Repurpose the waste from the imprecise assembly of machines for new materials. No process is ever truly perfect.",
   "author": "SafTheLamb, S6X",
-  "version": "1.1.6",
-  "factorio_version": "2.0",
+  "version": "1.2.0",
+  "factorio_version": "2.1",
   "package": {
     "ignore": ["thumbnail.afphoto", "**/*.af", "**/*.ase", "**/*.af~lock~", "**/*.pdn"]
   },
   "dependencies": [
-    "base >= 2.0.73",
-    "scraptk",
+    "base >= 2.1.0",
+    "scraptk >= 1.2.0",
+    "fdsl >= 0.4.0",
     "? space-age",
-    "fdsl >= 0.2.4",
     "? crushing-industry >= 0.5.0",
     "(?) Rocs-Rusting-Iron >= 1.2.0",
     "(?) aai-industry",
