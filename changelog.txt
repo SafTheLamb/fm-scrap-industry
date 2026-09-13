@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.1
-Date: ????
+Date: 2026-09-12
   Compatibility:
     - Lost Technology: Retexture Fulgoran metal to distinguish it from iron scrap
     - Lost Technology: Add 10% Iron scrap to Fulgoran metal recycling
