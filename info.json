@@ -15,6 +15,7 @@
     "? space-age",
     "? crushing-industry >= 0.5.0",
     "(?) Rocs-Rusting-Iron >= 1.2.0",
+    "(?) lost-technology",
     "(?) aai-industry",
     "(?) bzlead",
     "(?) quality"

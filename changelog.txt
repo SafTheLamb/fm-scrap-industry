@@ -1,7 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.1
+Date: ????
+  Compatibility:
+    - Lost Technology: Retexture Fulgoran metal to distinguish it from iron scrap
+    - Lost Technology: Add 10% Iron scrap to Fulgoran metal recycling
+---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 2026-06-28
-  Compatibility:
+  Changes:
     - Update mod to Factorio 2.1
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.6
