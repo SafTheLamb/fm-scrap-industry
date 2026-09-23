@@ -173,7 +173,7 @@ if mods["space-age"] then
       drop_sound = item_sounds.resource_inventory_move,
       stack_size = 50,
       weight = 2*kg,
-      fuel_category = not volatile_lithium and "chemical" or nil,
+      fuel_categories = not volatile_lithium and {"chemical"} or nil,
       fuel_value = not volatile_lithium and "1MJ" or nil,
       spoil_ticks = volatile_lithium and 3*minute or nil,
       spoil_to_trigger_result = volatile_lithium and {
