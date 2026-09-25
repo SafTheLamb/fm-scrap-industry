@@ -3,7 +3,7 @@
   "title": "Scrappy Industry",
   "description": "Repurpose the waste from the imprecise assembly of machines for new materials. No process is ever truly perfect.",
   "author": "SafTheLamb, S6X",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "factorio_version": "2.1",
   "package": {
     "ignore": ["thumbnail.afphoto", "**/*.af", "**/*.ase", "**/*.af~lock~", "**/*.pdn"]
